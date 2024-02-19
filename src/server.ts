@@ -9,7 +9,6 @@ app.use(express.json({ limit: '50mb' }));
 app.use(express.urlencoded({ limit: '50mb', extended: false }));
 routerApi(app);
 app.use(boomErrorHandler);
-
 app.get('/', (_: Request, res: Response) => {
 	res.send('Hola, mundo!');
 });
