@@ -3,7 +3,7 @@ import path from 'path';
 import { Environment, validEnvironments } from './types';
 import { validator } from './validator';
 
-const ENV_FILE_BASE_PATH = '../../.env.';
+const ENV_FILE_BASE_PATH = '../../../.env.';
 
 function validateNodeEnv(nodeEnv: string | undefined) {
 	if (!validEnvironments.includes(nodeEnv as Environment)) {

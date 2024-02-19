@@ -6,4 +6,5 @@ loadEnv();
 export const config: EnvConfig = {
 	nodeEnv: process.env.NODE_ENV as Environment,
 	port: process.env.PORT as string,
+	execGs: process.env.EXEC_GS as string,
 };
