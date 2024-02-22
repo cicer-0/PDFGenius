@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="es">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="description" content="FUA" />
+		<meta name="robots" content="index,follow" />
+		<title>Fua</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.00" />
+
+		<style>
+			* {
+				box-sizing: border-box;
+				margin: 0;
+				padding: 0;
+				border: 0;
+				font-family: Arial;
+			}
+
+			.body {
+				-webkit-print-color-adjust: exact;
+				width: 100%;
+				font-size: 10px;
+				min-width: 1100px;
+				margin-left: 0.4em;
+				margin-right: 0.4em;
+				padding-left: 3%;
+				padding-right: 2.5%;
+				position: absolute;
+			}
+			.espace_table {
+				width: 100%;
+				font-size: 1em;
+				margin-bottom: 0.5em;
+			}
+			.table_bor,
+			.table_bor td,
+			.table_bor th {
+				border: 0.01em rgb(0, 0, 0) solid;
+				border-collapse: collapse;
+				text-align: center;
+				padding-top: 0.12em;
+				padding-bottom: 0.12em;
+			}
+
+			.table_bor th {
+				border-top: 0em;
+			}
+			.celd_color_grey {
+				background-color: rgb(204, 204, 204);
+			}
+			.celd_title_bold {
+				font-weight: 700;
+			}
+			.font_tit_size {
+				font-size: 1.2em;
+			}
+			.font_12 {
+				font-size: 1.2em;
+			}
+			.li_me_in_im table {
+				width: 100%;
+			}
+
+			.table_basic,
+			.table_basic th,
+			.table_basic td {
+				padding-top: 0.12em;
+				padding-bottom: 0.12em;
+			}
+			.liquida_qr {
+				width: 100%;
+			}
+			.liquidac {
+				font-size: 1.5em;
+				text-align: left;
+				margin-bottom: 0.7em;
+			}
+
+			.liquidac tr:first-child th {
+				text-align: center;
+			}
+
+			.liquidac tr:nth-child(n + 2) td:first-child {
+				text-align: right;
+			}
+
+			.liquidac tr td:nth-child(1) {
+				width: 11%;
+			}
+
+			.liquidac tr td:nth-child(2) {
+				width: 50%;
+			}
+
+			.liquidac tr td:nth-child(3) {
+				width: 17%;
+			}
+
+			.liquidac tr td:nth-child(4) {
+				width: 15%;
+			}
+
+			.liquidac tr td:nth-child(5) {
+				width: 7%;
+			}
+
+			.border_col_celd {
+				border: 0.01em rgb(0, 0, 0) solid;
+				border-collapse: collapse;
+				text-align: left;
+			}
+
+			.border_quitar {
+				border: 0em;
+			}
+
+			.import_table {
+				margin-bottom: 2em;
+			}
+
+			.import_table th,
+			.import_table td {
+				padding-right: 0.5em;
+			}
+
+			.import_table tr:first-child th:last-child {
+				text-align: right;
+			}
+
+			.import_table tr:nth-child(n + 3) td:nth-child(n + 6) {
+				text-align: right;
+			}
+
+			.import_table tr:nth-child(n + 3) td:nth-child(1) {
+				text-align: right;
+			}
+
+			.import_table tr:nth-child(n + 3) td:nth-child(2) {
+				text-align: right;
+			}
+
+			.import_table tr:nth-child(n + 2) td:nth-child(1) {
+				width: 3.6%;
+			}
+
+			.import_table tr:nth-child(n + 2) td:nth-child(2) {
+				width: 3.6%;
+			}
+
+			.import_table tr:nth-child(n + 2) td:nth-child(3) {
+				width: 4.1%;
+			}
+
+			.import_table tr:nth-child(n + 2) td:nth-child(4) {
+				width: 52.1%;
+			}
+
+			.import_table tr:nth-child(n + 2) td:nth-child(5) {
+				width: 7.7%;
+			}
+
+			.import_table tr:nth-child(n + 2) td:nth-child(6) {
+				width: 7.7%;
+			}
+
+			.import_table tr:nth-child(n + 2) td:nth-child(7) {
+				width: 8.9%;
+			}
+
+			.import_table tr:nth-child(n + 2) td:nth-child(8) {
+				width: 12.3%;
+			}
+
+			.import_table tr:nth-child(2n + 3) {
+				background-color: rgb(235, 235, 235);
+			}
+			.bold {
+				font-weight: 700;
+			}
+			.he_celd_4 {
+				height: 6em;
+			}
+			.obs_sec table {
+				width: 100%;
+			}
+			.box__observacion tr:last-child td {
+				text-align: left;
+				padding: 0 1%;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div class="body">
+			<div class="li_me_in_im espace_table">
+				<table class="table_basic liquidac">
+					<tr>
+						<th colspan="5" class="bold">
+							LIQUIDACION DE <span><%= settlementType %></span>
+						</th>
+					</tr>
+					<tr>
+						<td class="bold">CUENTA:</td>
+						<td class="bold"><%= accountNumber %></td>
+						<td class="bold">Nº HISTORIA</td>
+						<td class="bold"><%= historyNumber %></td>
+						<td rowspan="4">
+							<img
+								class="liquida_qr"
+								src="https://api.qrserver.com/v1/create-qr-code/?data=<%= encodeURIComponent(qrUrl) %>&amp;size=500x500"
+								alt="codigo qr"
+							/>
+						</td>
+					</tr>
+					<tr>
+						<td class="bold">PACIENTE:</td>
+						<td>
+							<%= lastName %> <%= middleName %> <%= firstName %> <%= otherName
+							%>
+						</td>
+						<td></td>
+						<td></td>
+					</tr>
+					<tr>
+						<td class="bold">IAFA:</td>
+						<td><%= iafa %></td>
+						<td class="bold">FECHA DE INGRESO</td>
+						<td><%= entryDate %></td>
+					</tr>
+					<tr>
+						<td class="bold">CONTRATO:</td>
+						<td><%= contractId %>-<%= contractLot %>-<%= contractNumber %></td>
+						<td class="bold">FECHA DE ALTA:</td>
+						<td><%= dischargeDate %></td>
+					</tr>
+					<tr>
+						<td class="bold">NRO. FUA:</td>
+						<td class="bold"><%= fuaD %>-<%= fuaL %>-<%= fuaN %></td>
+						<td class="bold">TOTAL GENERAL:</td>
+						<td>S/.</td>
+						<td><%= totalAmount %></td>
+					</tr>
+				</table>
+
+				<table
+					class="table_basic border_quitar medica_im border_col_celd import_table"
+				>
+					<tr class="border_col_celd">
+						<th class="bold" colspan="4">DIAGNOSTICO</th>
+					</tr>
+					<tr class="border_col_celd">
+						<td class="bold celd_color_grey">N°</td>
+						<td class="bold celd_color_grey">CIE10</td>
+						<td class="bold celd_color_grey">DESCRIPCION</td>
+						<td class="bold celd_color_grey">TIPO</td>
+					</tr>
+					<% diagnosis.forEach((item, index) => { %>
+					<tr>
+						<td><%= index + 1 %></td>
+						<td><%= item.icd10 %></td>
+						<td><%= item.description %></td>
+						<td><%= item.type %></td>
+					</tr>
+					<% }); %>
+				</table>
+
+				<div class="obs_sec espace_table">
+					<table class="table_bor box__observacion">
+						<tr>
+							<th class="celd_color_grey celd_title_bold font_tit_size">
+								OBSERVATIONS
+							</th>
+						</tr>
+						<tr>
+							<td class="font_12 he_celd_4"><%= observation %></td>
+						</tr>
+					</table>
+				</div>
+
+				<table
+					class="table_basic border_quitar medica_im border_col_celd import_table"
+				>
+					<tr style="height: 0px">
+						<th style="height: 0px" colspan="8"></th>
+					</tr>
+					<tr class="border_col_celd">
+						<td class="bold celd_color_grey">DX</td>
+						<td class="bold celd_color_grey">N°</td>
+						<td class="bold celd_color_grey">UNID</td>
+						<td class="bold celd_color_grey">DESCRIPCION</td>
+						<td class="bold celd_color_grey">CODIGO</td>
+						<td class="bold celd_color_grey">CANT.</td>
+						<td class="bold celd_color_grey">P.U</td>
+						<td class="bold celd_color_grey">TOTAL</td>
+					</tr>
+					<% table.forEach((item, index) => { %>
+					<tr>
+						<td><%= item.diagnosisNumber %></td>
+						<td><%= index + 1 %></td>
+						<td><%= item.unit %></td>
+						<td><%= item.description %></td>
+						<td><%= item.code %></td>
+						<td><%= item.prescribedQuantity.toFixed(2) %></td>
+						<td><%= item.unitPrice.toFixed(2) %></td>
+						<td><%= item.total.toFixed(2) %></td>
+					</tr>
+					<% }); %>
+				</table>
+			</div>
+		</div>
+	</body>
+</html>

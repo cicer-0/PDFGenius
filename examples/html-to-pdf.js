@@ -1,61 +1,93 @@
+const fs = require("fs").promises;
 const axios = require("axios");
-const fs = require("fs");
+const path = require("path");
+const { createBodyJSON } = require("./generate-body");
 
-/**
- * Datos de ejemplo para la plantilla HTML.
- * Puedes modificar estos datos según tus necesidades.
- */
-const data = {
-	title: "Ejemplo de PDF",
-	content: "Este es un documento PDF generado dinámicamente.",
-};
-
-/**
- * Plantilla HTML de ejemplo.
- * Puedes personalizar esta plantilla según tus necesidades.
- */
-const template = `
-<html>
-<head>
-	<title><%= title %></title>
-</head>
-<body>
-	<h1><%= title %></h1>
-	<p><%= content %></p>
-</body>
-</html>
-`;
-
-/**
- * Función para generar un archivo PDF utilizando la API PDFGenius.
- * @param {string} template La plantilla HTML.
- * @param {Object} data Los datos a insertar en la plantilla.
- * @returns {Promise<void>} Promesa que se resuelve una vez que se genera el PDF.
- */
-async function generatePDF(template, data) {
+async function loadJsonFromFile(filePath) {
 	try {
-		// Realizar una solicitud POST a la API PDFGenius
-		const response = await axios.post(
-			"http://localhost:5000/generate-pdf/html",
-			{
-				template: template,
-				data: data,
-			},
-			{
-				responseType: "arraybuffer", // Especificar el tipo de respuesta como arreglo de bytes
-			}
-		);
-
-		// Guardar el PDF generado en el sistema de archivos
-		fs.writeFileSync("ejemplo.pdf", response.data);
-		console.log("PDF generado exitosamente.");
+		const jsonData = await fs.readFile(filePath, "utf-8");
+		return JSON.parse(jsonData);
 	} catch (error) {
-		console.error(
-			"Error al generar el PDF:",
-			error.response ? error.response.data : error.message
+		throw new Error(
+			`Error loading JSON from file ${filePath}: ${error.message}`
 		);
 	}
 }
 
-// Llamar a la función para generar el PDF
-generatePDF(template, data);
+async function generatePdfFromTemplate(url, template, data) {
+	try {
+		const requestBody = JSON.stringify({
+			template,
+			data,
+		});
+
+		const response = await axios.post(url, requestBody, {
+			headers: {
+				"Content-Type": "application/json",
+			},
+			responseType: "arraybuffer",
+		});
+
+		return response.data;
+	} catch (error) {
+		throw new Error(`Error generating PDF from template: ${error.message}`);
+	}
+}
+
+async function savePdfToFile(pdfBuffer, outputPath) {
+	try {
+		console.log("Saving PDF...");
+		await fs.writeFile(outputPath, pdfBuffer);
+		console.log("PDF saved successfully at:", outputPath);
+	} catch (error) {
+		throw new Error(`Error saving PDF to ${outputPath}: ${error.message}`);
+	}
+}
+
+async function generateAndSavePdf(url, data, template, outputFile) {
+	try {
+		if (!data) {
+			throw new Error("Failed to load data.");
+		}
+
+		const pdfBuffer = await generatePdfFromTemplate(url, template, data);
+		await savePdfToFile(pdfBuffer, outputFile);
+
+		return outputFile;
+	} catch (error) {
+		throw new Error(`Error generating and saving PDF: ${error.message}`);
+	}
+}
+
+async function main(basePath) {
+	try {
+		const dataFilePath = path.join(basePath, "data.json");
+		const templateFilePath = path.join(basePath, "template.ejs");
+
+		const generatedFilesDir = path.join(basePath, "generated-files");
+		const pdfOutputPath = path.join(generatedFilesDir, "output.pdf");
+		const bodyFilePath = path.join(generatedFilesDir, "body.json");
+
+		const generatePdfUrl = "http://localhost:5000/generate-pdf/html";
+
+		console.log("Generating PDF...");
+
+		const template = await fs.readFile(templateFilePath, "utf-8");
+		const data = await loadJsonFromFile(dataFilePath);
+
+		const pdfFilePath = await generateAndSavePdf(
+			generatePdfUrl,
+			data,
+			template,
+			pdfOutputPath
+		);
+
+		console.log("PDF completed and saved at:", pdfFilePath);
+
+		await createBodyJSON(template, data, bodyFilePath);
+	} catch (error) {
+		console.error("An error occurred during the process:", error.message);
+	}
+}
+
+module.exports = { generateAndSavePdf, loadJsonFromFile, main };

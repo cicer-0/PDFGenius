@@ -1,0 +1,67 @@
+{
+	"settlementType": "Type A",
+	"accountNumber": "12345",
+	"historyNumber": "67890",
+	"qrUrl": "https://example.com/qr",
+	"lastName": "Doe",
+	"middleName": "",
+	"firstName": "John",
+	"otherName": "",
+	"iafa": "SIS",
+	"entryDate": "2023-01-15",
+	"contractId": "CON123",
+	"contractLot": "LOT456",
+	"contractNumber": "7890",
+	"dischargeDate": "2023-01-30",
+	"fuaD": "FUA123",
+	"fuaL": "456",
+	"fuaN": "789",
+	"totalAmount": 1234.56,
+	"diagnosis": [
+		{
+			"icd10": "A00",
+			"description": "Cholera",
+			"type": "Disease"
+		},
+		{
+			"icd10": "B00",
+			"description": "Herpes Simplex",
+			"type": "Infection"
+		},
+		{
+			"icd10": "C00",
+			"description": "Tumor",
+			"type": "Tumor"
+		}
+	],
+	"observation": "Patient is doing well after treatment.",
+	"table": [
+		{
+			"diagnosisNumber": "DX1",
+			"unit": "Unit1",
+			"description": "Medicine 1",
+			"code": "M001",
+			"prescribedQuantity": 5,
+			"unitPrice": 10.25,
+			"total": 51.25
+		},
+		{
+			"diagnosisNumber": "DX2",
+			"unit": "Unit2",
+			"description": "Medicine 2",
+			"code": "M002",
+			"prescribedQuantity": 3,
+			"unitPrice": 15.75,
+			"total": 47.25
+		},
+		{
+			"diagnosisNumber": "DX3",
+			"unit": "Unit3",
+			"description": "Medicine 3",
+			"code": "M003",
+			"prescribedQuantity": 2,
+			"unitPrice": 20.5,
+			"total": 41
+		}
+	]
+}

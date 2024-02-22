@@ -1,0 +1,59 @@
+{
+	"fecha": "16/02/2024 9:39am",
+	"numeroCuenta": "5458462",
+	"nroFUA": "00006207-24-00205277",
+	"nombrePaciente": "AMADO CHAUPIS ESTELITA",
+	"servicio": "Pabellon 5 - I Ginecologia",
+	"fechaIngreso": "12/02/2024",
+	"historiaClinica": "1066515",
+	"fechaAlta": "15/02/2024",
+	"codigoPrestacional": "065",
+	"denominacion": "INTERNAMIENTO EN ESTABLECIMIENTO DE SALUD SIN INTERVENCIóN QUIRúRGICA",
+	"diagnostico1": "CARCINOMA IN SITU DE LA MAMA, PARTE NO ESPECIFICADA",
+	"procedimientos": [
+		{
+			"codigo": "99206",
+			"procedimiento": "ATENCION DE ENFERMERÍA EN II, III NIVEL DE ATENCIÓN DE SALUD",
+			"cantidad": 4,
+			"precio": 2.33,
+			"total": 9.32,
+			"dx": 1
+		},
+		{
+			"codigo": "99210",
+			"procedimiento": "ATENCION DE SERVICIO SOCIAL",
+			"cantidad": 1,
+			"precio": 2.0,
+			"total": 2.0,
+			"dx": 1
+		},
+		{
+			"codigo": "99211",
+			"procedimiento": "CONSULTA MÉDICA GENERAL",
+			"cantidad": 2,
+			"precio": 30.0,
+			"total": 60.0,
+			"dx": 2
+		},
+		{
+			"codigo": "99213",
+			"procedimiento": "CONSULTA MÉDICA ESPECIALIZADA",
+			"cantidad": 3,
+			"precio": 40.0,
+			"total": 120.0,
+			"dx": 3
+		}
+	],
+	"resumen": {
+		"MEDICAMENTOS": 280.35,
+		"LAB/PRO": 1396.0,
+		"CPMS-AUD": 167.29,
+		"VALORIZADO": 1843.64
+	},
+	"observacion": "Inserta aquí la observación",
+	"auditor": {
+		"nombre": "M.C. MADUEÑO VARGAS PATRICIA ANGELA",
+		"cmp": "39712",
+		"rna": "A04635"
+	}
+}
