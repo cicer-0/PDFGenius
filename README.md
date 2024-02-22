@@ -1,59 +1,88 @@
-Aquí tienes la documentación actualizada para utilizar EJS en lugar de Handlebars:
+### Descripción del Proyecto: PDFGenius
 
-## Documentación de la API PDFGenius
+PDFGenius es una herramienta poderosa diseñada para convertir HTML en PDF de manera eficiente y precisa. Está construida con una arquitectura limpia y modular que permite convertir fácilmente datos JSON en HTML dinámico y generar documentos PDF profesionales al instante.
 
-¡Bienvenido a la documentación de la API PDFGenius! Esta API te permite generar archivos PDF a partir de plantillas HTML y datos JSON utilizando Node.js y Express. A continuación, encontrarás una guía paso a paso sobre cómo utilizar esta API de manera efectiva.
+---
 
-## Tabla de Contenidos
-- [Documentación de la API PDFGenius](#documentación-de-la-api-pdfgenius)
-- [Tabla de Contenidos](#tabla-de-contenidos)
-- [Introducción](#introducción)
-- [Requisitos](#requisitos)
-- [Configuración](#configuración)
-- [Uso de la API](#uso-de-la-api)
-	- [Generar PDF desde HTML](#generar-pdf-desde-html)
-- [Errores](#errores)
+### Levantar el Backend
 
-## Introducción
-PDFGenius es una API que simplifica la generación de archivos PDF a partir de plantillas HTML dinámicas y datos JSON. Utiliza las tecnologías Node.js, Express, Puppeteer y EJS para lograr esta funcionalidad.
+#### En Desarrollo
 
-## Requisitos
-Asegúrate de tener instalado lo siguiente antes de comenzar:
-- Node.js (v14.x o superior)
-- npm o yarn
-- Google Chrome (para Puppeteer)
+1. **Instalación de Dependencias**: Asegúrate de tener Node.js y npm instalados en tu sistema. Luego, clona el repositorio del proyecto PDFGenius.
 
-## Configuración
-1. Clona el repositorio de PDFGenius en tu máquina local.
-2. Instala las dependencias ejecutando `npm install` o `yarn install`.
-3. Crea un archivo `.env` en la raíz del proyecto y define las siguientes variables de entorno:
-   - `NODE_ENV`: Entorno de la aplicación (development, production, test).
-   - `PORT`: Puerto en el que se ejecutará el servidor Express.
-   - `EXEC_GS`: Ruta al ejecutable GhostScript.
-4. Asegúrate de tener una plantilla HTML preparada con sintaxis EJS (`<%= variable %>`) y los datos JSON correspondientes para generar el PDF.
+   ```bash
+   git clone <url_del_repositorio>
+   cd PDFGenius
+   npm install
+   ```
 
-## Uso de la API
-### Generar PDF desde HTML
-- **URL:** `/generate-pdf/html`
-- **Método:** `POST`
-- **Parámetros de la solicitud:**
-  - `template`: Cadena de texto que representa la plantilla HTML con sintaxis EJS.
-  - `data`: Objeto JSON que contiene los datos a insertar en la plantilla.
-- **Respuesta exitosa:** Devuelve el PDF generado como una respuesta binaria.
-- **Ejemplo de solicitud:**
-  ```json
-  {
-    "template": "<h1><%= title %></h1><p><%= content %></p>",
-    "data": {
-      "title": "Ejemplo de PDF",
-      "content": "Este es un documento PDF generado dinámicamente."
-    }
-  }
-  ```
+2. **Configuración de Variables de Entorno**: Ajusta las variables de entorno para el entorno de Desarrollo.
 
-## Errores
-La API puede devolver los siguientes códigos de estado y mensajes de error en caso de problemas:
-- `400 Bad Request`: Error en la solicitud debido a datos incorrectos.
-- `500 Internal Server Error`: Error interno en el servidor.
+   En el archivo `.env.development`, configura las siguientes variables:
 
-¡Y eso es todo! Con esta guía, deberías poder utilizar la API PDFGenius para generar fácilmente archivos PDF desde plantillas HTML con sintaxis EJS y datos JSON. Si encuentras algún problema o tienes alguna pregunta, no dudes en ponerte en contacto con el equipo de desarrollo. ¡Feliz generación de PDF! 📄✨
+   ```plaintext
+   PORT=5000
+   EXEC_GS=gs
+   ```
+
+3. **Ejecución en Modo Desarrollo**: Inicia el servidor en modo de desarrollo con nodemon para reiniciar automáticamente cuando detecte cambios.
+
+   ```bash
+   npm run start:dev
+   ```
+
+#### En Producción
+
+1. **Compilación del Código**: Antes de desplegar en producción, asegúrate de compilar el código TypeScript a JavaScript.
+
+   ```bash
+   npm run build
+   ```
+
+2. **Configuración de Variables de Entorno**: Ajusta las variables de entorno para el entorno de producción.
+
+   En el archivo `.env.production`, configura las siguientes variables:
+
+   ```plaintext
+   PORT=8080
+   EXEC_GS=/usr/bin/gs
+   ```
+
+3. **Ejecución en Modo Producción**: Inicia el servidor en modo de producción con la configuración correspondiente.
+
+   ```bash
+   npm start
+   ```
+
+---
+
+### Variables de Entorno
+
+El archivo `.env` contiene variables que configuran aspectos del servidor en diferentes entornos. Ajusta estas variables según tus necesidades:
+
+- `PORT`: Define el puerto en el que el servidor escuchará las solicitudes.
+- `EXEC_GS`: Ruta o comando para ejecutar Ghostscript, necesario para ciertas operaciones.
+
+---
+
+Entendido, entonces podemos actualizar la sección de Ejemplos para reflejar cómo se utilizan los scripts `generate-body.js` y `html-to-pdf.js` en el script `generate.js`. Aquí tienes la documentación revisada:
+
+### Ejemplos
+
+#### 1. Configuración de archivos
+
+   - Asegúrate de tener los siguientes archivos:
+     - `data.json`: Contiene los datos que deseas incluir en tu PDF.
+     - `template.ejs`: Es el template HTML que servirá como base para tu PDF.
+
+#### 2. Ejecución de `generate.js`
+
+   Este script utiliza los archivos `data.json` y `template.ejs` para generar un PDF. Combina `generate-body.js` y `html-to-pdf.js` para convertir la plantilla en un archivo `output.pdf` y generar un `body.json`.
+
+   ```bash
+   node examples/generate.js
+   ```
+
+   Al finalizar, verás archivos en la carpeta `generated-files`.
+
+---
