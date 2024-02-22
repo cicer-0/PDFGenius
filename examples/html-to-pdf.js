@@ -90,4 +90,4 @@ async function main(basePath) {
 	}
 }
 
-module.exports = { generateAndSavePdf, loadJsonFromFile, main };
+module.exports = { main };
