@@ -80,7 +80,7 @@ Entendido, entonces podemos actualizar la sección de Ejemplos para reflejar có
    Este script utiliza los archivos `data.json` y `template.ejs` para generar un PDF. Combina `generate-body.js` y `html-to-pdf.js` para convertir la plantilla en un archivo `output.pdf` y generar un `body.json`.
 
    ```bash
-   node examples/generate.js
+   node examples/template/<template>/generate.js
    ```
 
    Al finalizar, verás archivos en la carpeta `generated-files`.
