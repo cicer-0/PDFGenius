@@ -86,3 +86,29 @@ Entendido, entonces podemos actualizar la sección de Ejemplos para reflejar có
    Al finalizar, verás archivos en la carpeta `generated-files`.
 
 ---
+## Documentación de la Ruta `/generate-pdf/html`
+
+### Descripción
+Esta ruta permite generar un archivo PDF a partir de una plantilla HTML proporcionada junto con datos en formato JSON.
+
+### URL
+```
+POST /generate-pdf/html
+```
+
+### Parámetros de la Solicitud
+La solicitud debe incluir un cuerpo en formato JSON con los siguientes campos:
+
+1. **template** (cadena de texto, requerido): La plantilla HTML que se utilizará para generar el PDF.
+2. **data** (objeto JSON, requerido): Los datos que se utilizarán para llenar la plantilla.
+
+Ejemplo del cuerpo de la solicitud:
+```json
+{
+  "template": "<html><body><h1>{{ title }}</h1><p>{{ content }}</p></body></html>",
+  "data": {
+    "title": "Ejemplo de PDF Generado",
+    "content": "Este es un ejemplo de contenido para el PDF."
+  }
+}
+```
